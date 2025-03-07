@@ -3,27 +3,27 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# 1. Citirea datelor
+# Citirea datelor
 df = pd.read_csv("../data/vanzari.csv")
 print("Date brute:\n", df.head())
 
-# 2. Curățarea datelor
+# Curatarea datelor
 df['Data'] = pd.to_datetime(df['Data'])
 df.drop_duplicates(inplace=True)
 df.dropna(inplace=True)
 
 print("\nDate curățate:\n", df.head())
 
-# 3. Venit total
+# Venit total
 df['Venit'] = df['Cantitate'] * df['Pret']
 venit_total = df['Venit'].sum()
 print(f"\nVenit total: {venit_total} RON")
 
-# 4. Cele mai vândute produse
+# Cele mai vândute produse
 produse_vandute = df.groupby("Produs")["Cantitate"].sum().sort_values(ascending=False)
 print("\nCele mai vândute produse:\n", produse_vandute)
 
-# 5. Clienți fideli
+# Clienti fideli
 clienti_fideli = df.groupby("Client")["Cantitate"].sum().sort_values(ascending=False)
 print("\nClienți fideli:\n", clienti_fideli)
 
